@@ -5,7 +5,7 @@
 $(document).ready(function() {
   let api = 'https://randomuser.me/api/?results=12&nat=us&exc=gender,login,registered,id,phone';
   $.getJSON(api, function(data){
-    var employeeHTML;
+    var employeeHTML = '';
       $.each(data.results, function(index, employee){
         // Use the response data to display 12 users, along with some basic information for each:
         employeeHTML += '<div class="card">';
