@@ -1,13 +1,16 @@
 
+// With information provided from The Random User Generator API, send a request to the API
+  // and use the response data to display 12 users, along with some basic information for each:
 
-    // With information provided from The Random User Generator API, send a request to the API
-      // and use the response data to display 12 users, along with some basic information for each:
+let employeeData; // creates a variable outside of the following functions in order to later store data from inside the functions
+
 $(document).ready(function() {
-  let api = 'https://randomuser.me/api/?results=12&nat=us&exc=gender,login,registered,id,phone';
+  let api = 'https://randomuser.me/api/?results=12&nat=us,ca&exc=gender,login,registered,id,phone';
   $.getJSON(api, function(data){
-    console.log(data); // Logs the array of employee data to the console.
-    var employeeHTML = '';
+    employeeData = data.results; // storing the array in a variable to use for the modal window
+    console.log(employeeData, 'employeeData variable'); // test to make sure the variable is stored correctly
     // Get and display 12 random users
+    var employeeHTML = ''; // variable to store the entirety of what's about to be appended to it
       $.each(data.results, function(index, employee){
         // Use the response data to display 12 users, along with some basic information for each:
         employeeHTML += '<div class="card">';
@@ -24,12 +27,11 @@ $(document).ready(function() {
         employeeHTML += '<p class="card-text cap">' + employee.location.city + ', ' + employee.location.state + '</p>';
         employeeHTML += '</div>'; // close card-info-container div
         employeeHTML += '</div>'; // close card div
+        $('#gallery').html(employeeHTML); // append to page in gallery ID
       }); // end $.each
-      $('#gallery').html(employeeHTML); // append to page in gallery ID
 
 // Create a modal window
-$('div .card').click(function() {
-      let modalWindow = '';
+      let modalWindow = ''; // variable to store the entirety of what's about to be appended to it
        // When any part of an employee item in the directory is clicked,   
          // a modal window should pop up with the following details displayed:
       $.each(data.results, function(index, employee){
@@ -54,27 +56,19 @@ $('div .card').click(function() {
         modalWindow += '<p class="modal-text">' + employee.dob.date + '</p>';
         modalWindow += '</div>' // close modal div
         modalWindow += '</div>' // close modal-container div
-
-// 
-// This part isn't working yet
-// 
+      }); // end $.each
+      $('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
+      $('#modal-window-div').html(modalWindow).hide(); // append to body of page and hide upon load
 
         // Make sure there’s a way to close the modal window:
-        $('#modal-close-btn').click(function() {
-          $('.modal-container').hide();
+        $('div .modal-close-btn').click(function() {
+          console.log('click');
+          $('#modal-window-div').hide();
         }); // $('#modal-close-btn').click
-
-// 
-// 
-// 
-
-      }); // end $.each
-      $('body').html(modalWindow); // append to body of page
-      
-      }); // end $('div .card').click
-
-
-
+        
+        $('div .card').click(function() {
+          $('#modal-window-div').show();
+        }); // end $('div .card').click
 
     }); // end $.getJSON
-}); // end $(document).ready
+  }); // end $(document).ready
