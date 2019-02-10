@@ -2,7 +2,7 @@
 // With information provided from The Random User Generator API, send a request to the API
   // and use the response data to display 12 users, along with some basic information for each:
 
-let employeeData; // creates a variable outside of the following functions in order to later store data from inside the functions
+var employeeData;
 
 $(document).ready(function() {
   let api = 'https://randomuser.me/api/?results=12&nat=us,ca&exc=gender,login,registered,id,phone';
@@ -39,43 +39,45 @@ $(document).ready(function() {
         modalWindow += '<div class="modal">';
         modalWindow += '<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>';
         modalWindow += '<div class="modal-info-container">';
+
         // Image:
         modalWindow += '<img class="modal-img" src="' + employee.picture.large + '" alt="profile picture">';
+
         // Name:
         modalWindow += '<h3 id="name" class="modal-name cap">' + employee.name.first + ' ' + employee.name.last + '</h3>';
+
         // Email:
         modalWindow += '<p class="modal-text">' + employee.email + '</p>';
+
         // City & State:
         modalWindow += '<p class="modal-text cap">' + employee.location.city + ', ' + employee.location.state + '</p>';
         modalWindow += '<hr>';
+
         // Cell Number:
         modalWindow += '<p class="modal-text">' + '<b>' + 'Cell Number:' + '</b>' + ' ' + employee.cell + '</p>';
+
         // Detailed Address, including street name and number, state or country, and post code:
-        modalWindow += '<p class="modal-text">'  + '<b>' + 'Address:' + '</b>' + '<br>' + employee.location.street.replace(/\b[a-z]/g, function(letter) {
-                                                      return letter.toUpperCase();
-                                                    }); ;// Replaces the lowercase letters that begin a word with the capital letter. [Cite source: https://stackoverflow.com/questions/5122402/uppercase-first-letter-of-variable]
-        modalWindow += '<br>' + employee.location.city.replace(/\b[a-z]/g, function(letter) {
-                                                      return letter.toUpperCase();
-                                                    });  ;
-        modalWindow +=  ', ' + employee.location.state.replace(/\b[a-z]/g, function(letter) {
-                                                      return letter.toUpperCase();
-                                                    });  ;
-        modalWindow += ' ' + employee.location.postcode + '</p>';
-        // Birthday:
+        modalWindow += '<p class="modal-text cap">'  + '<b>' + 'Address:' + '</b>' + '<br>';
+        modalWindow += employee.location.street + '<br>' + employee.location.city +  ', ' + employee.location.state + ' ' + employee.location.postcode + '</p>';
+
+        // Age & Birthday:
         modalWindow += '<p class="modal-text">' + '<b>' + 'Age:' + '</b>' + ' ' + employee.dob.age + '</p>';
         modalWindow += '<p class="modal-text">' + '<b>' + 'DOB:' + '</b>' + ' ' + employee.dob.date.slice(0, 10) + '</p>';
-        modalWindow += '</div>' // close modal div
-        modalWindow += '</div>' // close modal-container div
+        // Close the divs
+        modalWindow += '</div>';
+        modalWindow += '</div>';
       }); // end $.each
+
       $('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
       $('#modal-window-div').html(modalWindow).hide(); // append to body of page and hide upon load
 
         // Make sure there’s a way to close the modal window:
         $('div .modal-close-btn').click(function() {
-          console.log('click');
+          // console.log('click'); // Test
           $('#modal-window-div').hide();
         }); // $('#modal-close-btn').click
         
+        // Shows the modal window when you click on an info card
         $('div .card').click(function() {
           $('#modal-window-div').show();
         }); // end $('div .card').click
