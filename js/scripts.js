@@ -49,11 +49,21 @@ $(document).ready(function() {
         modalWindow += '<p class="modal-text cap">' + employee.location.city + ', ' + employee.location.state + '</p>';
         modalWindow += '<hr>';
         // Cell Number:
-        modalWindow += '<p class="modal-text">' + employee.cell + '</p>';
+        modalWindow += '<p class="modal-text">' + '<b>' + 'Cell Number:' + '</b>' + ' ' + employee.cell + '</p>';
         // Detailed Address, including street name and number, state or country, and post code:
-        modalWindow += '<p class="modal-text">' + employee.location.street + ', ' + employee.location.city + ', ' + employee.location.state + ' ' + employee.location.postcode + '</p>';
+        modalWindow += '<p class="modal-text">'  + '<b>' + 'Address:' + '</b>' + '<br>' + employee.location.street.replace(/\b[a-z]/g, function(letter) {
+                                                      return letter.toUpperCase();
+                                                    }); ;// Replaces the lowercase letters that begin a word with the capital letter. [Cite source: https://stackoverflow.com/questions/5122402/uppercase-first-letter-of-variable]
+        modalWindow += '<br>' + employee.location.city.replace(/\b[a-z]/g, function(letter) {
+                                                      return letter.toUpperCase();
+                                                    });  ;
+        modalWindow +=  ', ' + employee.location.state.replace(/\b[a-z]/g, function(letter) {
+                                                      return letter.toUpperCase();
+                                                    });  ;
+        modalWindow += ' ' + employee.location.postcode + '</p>';
         // Birthday:
-        modalWindow += '<p class="modal-text">' + employee.dob.date + '</p>';
+        modalWindow += '<p class="modal-text">' + '<b>' + 'Age:' + '</b>' + ' ' + employee.dob.age + '</p>';
+        modalWindow += '<p class="modal-text">' + '<b>' + 'DOB:' + '</b>' + ' ' + employee.dob.date.slice(0, 10) + '</p>';
         modalWindow += '</div>' // close modal div
         modalWindow += '</div>' // close modal-container div
       }); // end $.each
