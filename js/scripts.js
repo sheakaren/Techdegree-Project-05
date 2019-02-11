@@ -2,36 +2,41 @@
 // With information provided from The Random User Generator API, send a request to the API
   // and use the response data to display 12 users, along with some basic information for each:
 
-var employeeData;
-
 $(document).ready(function() {
   let api = 'https://randomuser.me/api/?results=12&nat=us,ca&exc=gender,login,registered,id,phone';
   $.getJSON(api, function(data){
-    employeeData = data.results; // storing the array in a variable to use for the modal window
+    let employeeData = data.results; // storing the array in a variable to use for the modal window
     console.log(employeeData, 'employeeData variable'); // test to make sure the variable is stored correctly
-    // Get and display 12 random users
-    var employeeHTML = ''; // variable to store the entirety of what's about to be appended to it
+
+// Get and display 12 random users
+    let employeeHTML = ''; // variable to store the entirety of what's about to be appended to it
       $.each(data.results, function(index, employee){
         // Use the response data to display 12 users, along with some basic information for each:
         employeeHTML += '<div class="card">';
         employeeHTML += '<div class="card-img-container">';
+
         // Image:
         employeeHTML += '<img class="card-img" src="' + employee.picture.large + '" alt="profile picture">';
         employeeHTML += '</div>'; // close card-img-container div
         employeeHTML += '<div class="card-info-container">';
+
         // First and Last Name:
         employeeHTML += '<h3 id="name" class="card-name cap">' + employee.name.first + ' ' + employee.name.last + '</h3>';
+
         // Email:
         employeeHTML += '<p class="card-text">' + employee.email + '</p>';
+
         // City & State:
         employeeHTML += '<p class="card-text cap">' + employee.location.city + ', ' + employee.location.state + '</p>';
-        employeeHTML += '</div>'; // close card-info-container div
-        employeeHTML += '</div>'; // close card div
+
+        // Close the divs
+        employeeHTML += '</div>'; 
+        employeeHTML += '</div>'; 
         $('#gallery').html(employeeHTML); // append to page in gallery ID
       }); // end $.each
 
 // Create a modal window
-      let modalWindow = ''; // variable to store the entirety of what's about to be appended to it
+    let modalWindow = ''; // variable to store the entirety of what's about to be appended to it
        // When any part of an employee item in the directory is clicked,   
          // a modal window should pop up with the following details displayed:
       $.each(data.results, function(index, employee){
@@ -54,15 +59,16 @@ $(document).ready(function() {
         modalWindow += '<hr>';
 
         // Cell Number:
-        modalWindow += '<p class="modal-text">' + '<b>' + 'Cell Number:' + '</b>' + ' ' + employee.cell + '</p>';
+        modalWindow += '<p class="modal-text"><b>' + 'Cell Phone:' + '</b>' + ' ' + employee.cell + '</p>';
 
-        // Detailed Address, including street name and number, state or country, and post code:
-        modalWindow += '<p class="modal-text cap">'  + '<b>' + 'Address:' + '</b>' + '<br>';
+        // Detailed Address, including street name and number, state or province, and post code:
+        modalWindow += '<p class="modal-text cap"><b>' + 'Address:' + '</b>' + '<br>';
         modalWindow += employee.location.street + '<br>' + employee.location.city +  ', ' + employee.location.state + ' ' + employee.location.postcode + '</p>';
 
         // Age & Birthday:
-        modalWindow += '<p class="modal-text">' + '<b>' + 'Age:' + '</b>' + ' ' + employee.dob.age + '</p>';
-        modalWindow += '<p class="modal-text">' + '<b>' + 'DOB:' + '</b>' + ' ' + employee.dob.date.slice(0, 10) + '</p>';
+        modalWindow += '<p class="modal-text"><b>' + 'Age:' + '</b>' + ' ' + employee.dob.age + '</p>';
+        modalWindow += '<p class="modal-text"><b>' + 'DOB:' + '</b>' + ' ' + employee.dob.date.slice(0, 10) + '</p>';
+
         // Close the divs
         modalWindow += '</div>';
         modalWindow += '</div>';
