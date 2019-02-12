@@ -35,16 +35,11 @@ $(document).ready(function() {
         $('#gallery').html(employeeHTML); // append to page in gallery ID
       }); // end $.each
 
-
-
-      // make a function that creates a modal and put it in a click listener on the cards. 
-      // When a card is clicked find its index and pass that into the function so 
-      // the function knows which employees data to use
-
 //
-// working on this part
+// Thanks to Reggie Williams and Brian Ball for the assist on this next part
 //
 let modalWindow;
+$('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
 
     // finds the index of each employee in the gallery
     $('.card').click(function(employeeData){
@@ -61,7 +56,7 @@ let modalWindow;
         modalWindow += '<img class="modal-img" src="' + data.results[employeeIndex].picture.large + '" alt="profile picture">';
 
         // Name:
-        modalWindow += '<h3 id="name" class="modal-name cap">' + data.results[employeeIndex].first + ' ' + employee.name.last + '</h3>';
+        modalWindow += '<h3 id="name" class="modal-name cap">' + data.results[employeeIndex].name.first + ' ' + data.results[employeeIndex].name.last + '</h3>';
 
         // Email:
         modalWindow += '<p class="modal-text">' + data.results[employeeIndex].email + '</p>';
@@ -85,70 +80,26 @@ let modalWindow;
         modalWindow += '</div>';
         modalWindow += '</div>';
         
-        $('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
+        
         $('#modal-window-div').html(modalWindow); // append to body of page and hide upon load
 
-        return createModal();
+        
       } // end createModal()
-    
+      return createModal();
   }); // end .click()
 //
 //
 //      
-  
-
-// let modalWindow;
-// // Create a modal window
-//        // When any part of an employee item in the directory is clicked,   
-//          // a modal window should pop up with the following details displayed:
-//       $.each(data.results, function(index, employee){
-//         modalWindow += '<div class="modal-container">';
-//         modalWindow += '<div class="modal">';
-//         modalWindow += '<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>';
-//         modalWindow += '<div class="modal-info-container">';
-
-//         // Image:
-//         modalWindow += '<img class="modal-img" src="' + employee.picture.large + '" alt="profile picture">';
-
-//         // Name:
-//         modalWindow += '<h3 id="name" class="modal-name cap">' + employee.name.first + ' ' + employee.name.last + '</h3>';
-
-//         // Email:
-//         modalWindow += '<p class="modal-text">' + employee.email + '</p>';
-
-//         // City & State:
-//         modalWindow += '<p class="modal-text cap">' + employee.location.city + ', ' + employee.location.state + '</p>';
-//         modalWindow += '<hr>';
-
-//         // Cell Number:
-//         modalWindow += '<p class="modal-text"><b>' + 'Cell Phone:' + '</b>' + ' ' + employee.cell + '</p>';
-
-//         // Detailed Address, including street name and number, state or province, and post code:
-//         modalWindow += '<p class="modal-text cap"><b>' + 'Address:' + '</b>' + '<br>';
-//         modalWindow += employee.location.street + '<br>' + employee.location.city +  ', ' + employee.location.state + ' ' + employee.location.postcode + '</p>';
-
-//         // Age & Birthday:
-//         modalWindow += '<p class="modal-text"><b>' + 'Age:' + '</b>' + ' ' + employee.dob.age + '</p>';
-//         modalWindow += '<p class="modal-text"><b>' + 'DOB:' + '</b>' + ' ' + employee.dob.date.slice(0, 10) + '</p>';
-
-//         // Close the divs
-//         modalWindow += '</div>';
-//         modalWindow += '</div>';
-//       }); // end $.each
-
-    $('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
-    $('#modal-window-div').html(modalWindow).hide(); // append to body of page and hide upon load
-
       // Make sure there’s a way to close the modal window:
-      $('div .modal-close-btn').click(function() {
+      $('#modal-window-div').click(function() {
         // console.log('click'); // Test
         $('#modal-window-div').hide();
       }); // $('#modal-close-btn').click
       
-      // // Shows the modal window when you click on an info card
-      // $('div .card').click(function() {
-      //   $('#modal-window-div').show();
-      // }); // end $('div .card').click
+      // Shows the modal window when you click on an info card
+      $('div .card').click(function() {
+        $('#modal-window-div').show();
+      }); // end $('div .card').click
 
     }); // end $.getJSON
   }); // end $(document).ready
