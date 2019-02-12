@@ -266,6 +266,12 @@ header h1 {
         border: 1.5px solid rgba(24, 23, 23, 0.9);
     }
 
+    .modal-close-btn:hover {
+        background: rgb(59, 81, 99);
+        border: 1px solid rgba(5, 57, 230, 0.3);
+}
+    }
+
     .btn:hover {
         background: rgba(255, 255, 255, 1);
         color: rgba(25, 25, 25, 1); 

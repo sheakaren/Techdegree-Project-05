@@ -35,8 +35,23 @@ $(document).ready(function() {
         $('#gallery').html(employeeHTML); // append to page in gallery ID
       }); // end $.each
 
+
+//
+// working on this part
+//
+
+    // finds the index of each employee in the gallery
+    $('.card').click(function(){
+      // alert($('.card').index(this));
+      var employeeIndex = $('.card').index(this);
+      console.log(employeeIndex);
+//
+//
+//      
+  
+
+let modalWindow;
 // Create a modal window
-    let modalWindow = ''; // variable to store the entirety of what's about to be appended to it
        // When any part of an employee item in the directory is clicked,   
          // a modal window should pop up with the following details displayed:
       $.each(data.results, function(index, employee){
@@ -74,19 +89,19 @@ $(document).ready(function() {
         modalWindow += '</div>';
       }); // end $.each
 
-      $('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
-      $('#modal-window-div').html(modalWindow).hide(); // append to body of page and hide upon load
+    $('body').append('<div id="modal-window-div">'); // create a new div to put the modalWindow in
+    $('#modal-window-div').html(modalWindow).hide(); // append to body of page and hide upon load
 
-        // Make sure there’s a way to close the modal window:
-        $('div .modal-close-btn').click(function() {
-          // console.log('click'); // Test
-          $('#modal-window-div').hide();
-        }); // $('#modal-close-btn').click
-        
-        // Shows the modal window when you click on an info card
-        $('div .card').click(function() {
-          $('#modal-window-div').show();
-        }); // end $('div .card').click
+      // Make sure there’s a way to close the modal window:
+      $('div .modal-close-btn').click(function() {
+        // console.log('click'); // Test
+        $('#modal-window-div').hide();
+      }); // $('#modal-close-btn').click
+      
+      // Shows the modal window when you click on an info card
+      $('div .card').click(function() {
+        $('#modal-window-div').show();
+      }); // end $('div .card').click
 
     }); // end $.getJSON
   }); // end $(document).ready
